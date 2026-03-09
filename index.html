@@ -31,6 +31,20 @@
     .star.s5{bottom:22%;left:10%;animation-delay:1.4s}
     .star.s6{bottom:14%;right:14%;animation-delay:.4s}
     @keyframes twinkle{0%,100%{transform:scale(1);opacity:.72}50%{transform:scale(1.35);opacity:1}}
+    .meteor-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .meteor{
+      position:absolute; top:-12px; width:2px; height:90px;
+      background:linear-gradient(to bottom, rgba(255,255,255,.95), rgba(255,255,255,0));
+      filter:drop-shadow(0 0 6px rgba(255,255,255,.7));
+      transform:rotate(28deg);
+      opacity:0;
+      animation:meteor-fall linear infinite;
+    }
+    @keyframes meteor-fall{
+      0%{opacity:0; transform:translate3d(0,0,0) rotate(28deg)}
+      8%{opacity:1}
+      100%{opacity:0; transform:translate3d(380px,620px,0) rotate(28deg)}
+    }
     .wrap{max-width:860px;margin:30px auto;padding:18px;position:relative;z-index:1}
     .card{
       background:var(--card);
@@ -84,6 +98,13 @@
     <span class="star s4">✧</span>
     <span class="star s5">✦</span>
     <span class="star s6">✧</span>
+  </div>
+  <div class="meteor-layer" aria-hidden="true">
+    <span class="meteor" style="left:10%;animation-duration:3.8s;animation-delay:.4s"></span>
+    <span class="meteor" style="left:28%;animation-duration:4.6s;animation-delay:1.5s"></span>
+    <span class="meteor" style="left:44%;animation-duration:5.2s;animation-delay:2.2s"></span>
+    <span class="meteor" style="left:62%;animation-duration:4.2s;animation-delay:.9s"></span>
+    <span class="meteor" style="left:80%;animation-duration:5.6s;animation-delay:2.8s"></span>
   </div>
 
   <div class="wrap">
