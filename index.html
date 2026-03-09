@@ -237,7 +237,7 @@
       const ctx = canvas.getContext('2d');
       let w = 0, h = 0;
       const meteors = [];
-      const count = 30;
+      const count = 16;
 
       function resize(){
         w = canvas.width = window.innerWidth;
@@ -249,12 +249,12 @@
       function reset(m, fresh=false){
         m.x = Math.random() * w * 0.9;
         m.y = fresh ? Math.random() * h * 0.5 : -Math.random()*120;
-        m.vx = 4 + Math.random() * 3;
-        m.vy = 7 + Math.random() * 4;
+        m.vx = 1.8 + Math.random() * 1.6;
+        m.vy = 3.2 + Math.random() * 2.2;
         m.len = 140 + Math.random() * 160;
         m.life = 0;
-        m.max = 45 + Math.random() * 40;
-        m.delay = Math.random() * 120;
+        m.max = 90 + Math.random() * 80;
+        m.delay = Math.random() * 220;
       }
 
       for(let i=0;i<count;i++){
