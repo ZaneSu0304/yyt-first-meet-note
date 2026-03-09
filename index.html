@@ -50,9 +50,24 @@
     }
     .ghost{background:#fff;border:1px solid #e7aac3;color:#b64c79}
     .foot{margin-top:14px;color:var(--muted);font-size:13px}
+    .tap-unmute{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+      background:rgba(0,0,0,.28);z-index:99;
+    }
+    .tap-unmute.show{display:flex}
+    .tap-card{
+      background:#fff;border-radius:14px;padding:14px 16px;
+      color:#4f3541;border:1px solid #f1bfd2;box-shadow:0 10px 25px rgba(0,0,0,.15);
+      font-size:15px;font-weight:600;
+    }
+    .submiting{opacity:.75;pointer-events:none}
   </style>
 </head>
 <body>
+  <div id="tapUnmute" class="tap-unmute">
+    <div class="tap-card">轻触页面任意位置，开启背景音乐 🎵</div>
+  </div>
+
   <div class="wrap">
     <div class="card">
       <h1>杨云婷 · 初见小札</h1>
@@ -60,13 +75,14 @@
 
       <div class="bgm">
         <div style="margin-bottom:8px;">🎵 BGM：巴黎的一个午后（橘儿）</div>
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="86" src="https://music.163.com/outchain/player?type=2&id=2649942149&auto=0&height=66"></iframe>
-        <div style="margin-top:8px;font-size:13px;color:#7f5f6f;">若页面内仍无声，请点这里直接播放：
-          <a href="https://music.163.com/#/song?id=2649942149" target="_blank" style="color:#bf4f7f;">网易云打开歌曲</a>
-        </div>
+        <audio id="bgm" controls preload="metadata" style="width:100%;">
+          <source src="https://music.163.com/song/media/outer/url?id=2649942149.mp3" type="audio/mpeg">
+          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+        <div style="margin-top:8px;font-size:13px;color:#7f5f6f;">进入页面后点一下播放即可（手机浏览器通常不允许自动出声）。</div>
       </div>
 
-      <form action="https://formsubmit.co/1c50a8d4084393a73cded94175beb118" method="POST">
+      <form id="foodForm" action="https://formsubmit.co/1c50a8d4084393a73cded94175beb118" method="POST">
         <input type="hidden" name="_subject" value="杨云婷·初见小札 - 问卷结果" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
@@ -153,7 +169,7 @@
         </div>
 
         <div class="btns">
-          <button type="submit">提交到邮箱</button>
+          <button id="submitBtn" type="submit">提交到邮箱</button>
           <button type="button" class="ghost" onclick="window.print()">打印 / 导出PDF</button>
         </div>
       </form>
@@ -161,5 +177,31 @@
       <p class="foot">提交后结果会发送到：c799526989@gmail.com</p>
     </div>
   </div>
+  <script>
+    (function(){
+      const audio = document.getElementById('bgm');
+      const tap = document.getElementById('tapUnmute');
+      const form = document.getElementById('foodForm');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // 尝试自动播放（多数移动端会拦截）
+      const tryPlay = () => audio && audio.play().catch(()=>tap.classList.add('show'));
+      window.addEventListener('load', tryPlay);
+
+      // 微信/移动端：用户任意触摸后开始播放
+      const unlock = () => {
+        if (!audio) return;
+        audio.play().then(()=>tap.classList.remove('show')).catch(()=>{});
+      };
+      document.addEventListener('touchstart', unlock, { once: true, passive: true });
+      document.addEventListener('click', unlock, { once: true });
+
+      // 提交按钮状态提示
+      form.addEventListener('submit', function(){
+        submitBtn.textContent = '提交中...';
+        submitBtn.classList.add('submiting');
+      });
+    })();
+  </script>
 </body>
 </html>
