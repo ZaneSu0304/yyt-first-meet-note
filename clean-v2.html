@@ -207,10 +207,30 @@
       document.addEventListener('touchstart', unlock, { once: true, passive: true });
       document.addEventListener('click', unlock, { once: true });
 
-      // 提交按钮状态提示
-      form.addEventListener('submit', function(){
+      // 提交按钮状态提示 + 强制POST提交（兼容部分内置浏览器）
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
         submitBtn.textContent = '提交中...';
         submitBtn.classList.add('submiting');
+
+        try {
+          const fd = new FormData(form);
+          const resp = await fetch(form.action, {
+            method: 'POST',
+            body: fd,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (resp.ok) {
+            const next = form.querySelector('input[name="_next"]')?.value;
+            window.location.href = next || 'https://zanesu0304.github.io/yyt-first-meet-note/thanks.html';
+            return;
+          }
+          throw new Error('submit failed');
+        } catch (err) {
+          submitBtn.textContent = '提交到邮箱';
+          submitBtn.classList.remove('submiting');
+          alert('自动提交失败，请点击“提交失败？改用邮件草稿”发送。');
+        }
       });
 
       window.sendByMailto = function(){
