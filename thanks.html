@@ -3,24 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>提交成功</title>
+  <title>提交成功 · 初见小札</title>
   <style>
-    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-      font-family:"PingFang SC","Microsoft YaHei",sans-serif;
-      background:linear-gradient(145deg,#ffe7f0,#ffd7e9);color:#5a3b49}
-    .card{background:#fff9fc;border:1px solid #f1bfd2;border-radius:16px;padding:28px 24px;max-width:520px;text-align:center;box-shadow:0 12px 30px #d97ba530}
-    h1{margin:0 0 10px;color:#bf4f7f}
-    p{margin:8px 0;color:#7f5f6f}
-    a{display:inline-block;margin-top:14px;padding:10px 14px;border-radius:10px;text-decoration:none;
-      background:linear-gradient(135deg,#f39fc1,#e676a6);color:#fff;font-weight:700}
+    :root{
+      --bg1:#ffe7f0;
+      --bg2:#ffd7e9;
+      --card:#fff9fc;
+      --line:#f1bfd2;
+      --text:#4f3541;
+      --muted:#7f5f6f;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+      color:var(--text);
+      background:linear-gradient(145deg,var(--bg1),var(--bg2));
+      padding:20px;
+    }
+    .card{
+      width:min(560px,94vw);
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:28px 24px;
+      box-shadow:0 12px 32px #d97ba530;
+      text-align:center;
+    }
+    h1{margin:0 0 10px;font-size:30px;color:#bf4f7f}
+    p{margin:8px 0;color:var(--muted);line-height:1.8}
+    .ok{font-size:42px;margin-bottom:6px}
+    .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+    a{
+      text-decoration:none;
+      border-radius:10px;
+      padding:10px 14px;
+      font-size:14px;
+      font-weight:700;
+    }
+    .primary{background:linear-gradient(135deg,#f39fc1,#e676a6);color:#fff}
+    .ghost{background:#fff;border:1px solid #e7aac3;color:#b64c79}
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>提交成功 ✅</h1>
-    <p>已收到你的选择，谢谢认真填写。</p>
-    <p>我们会按你的口味来安排这次见面。</p>
-    <a href="https://zanesu0304.github.io/yyt-first-meet-note/">返回问卷</a>
+    <div class="ok">✅</div>
+    <h1>提交成功</h1>
+    <p>已收到你的选择，感谢认真填写。</p>
+    <p>我会按你的偏好安排，一切以你舒服为主。</p>
+
+    <div class="btns">
+      <a class="primary" href="https://zanesu0304.github.io/yyt-first-meet-note/clean-v1.html">返回问卷</a>
+      <a class="ghost" href="mailto:c799526989@gmail.com?subject=问卷已提交确认">邮件确认</a>
+    </div>
   </div>
 </body>
 </html>
