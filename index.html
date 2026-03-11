@@ -181,6 +181,7 @@
 
         <div class="btns">
           <button id="submitBtn" type="submit">提交到邮箱</button>
+          <button type="button" class="ghost" onclick="sendByMailto()">提交失败？改用邮件草稿</button>
         </div>
       </form>
 
@@ -212,6 +213,16 @@
         submitBtn.classList.add('submiting');
       });
 
+      window.sendByMailto = function(){
+        const fd = new FormData(form);
+        const lines = [];
+        for (const [k,v] of fd.entries()) {
+          if (String(v).trim()) lines.push(`${k}: ${v}`);
+        }
+        const subject = encodeURIComponent('杨云婷·初见小札 - 问卷结果');
+        const body = encodeURIComponent(lines.join('\n'));
+        window.location.href = `mailto:c799526989@gmail.com?subject=${subject}&body=${body}`;
+      }
 
     })();
   </script>
